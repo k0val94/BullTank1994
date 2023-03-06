@@ -2,8 +2,12 @@ package com.koval.bulltank1994;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Canvas extends JFrame {
+    private Tank tank;
     private final int width;
     private final int height;
 
@@ -19,19 +23,25 @@ public class Canvas extends JFrame {
 
         getContentPane().setBackground(Color.BLACK);
 
+        // Initialize the Tank instance
+        List<Bullet> bullets = new ArrayList<Bullet>();
+        tank = new Tank(100, 100, bullets, KeyEvent.VK_UP, KeyEvent.VK_DOWN, KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT, KeyEvent.VK_SPACE, "playerOne_50.png");
+
         setVisible(true);
     }
 
     @Override
     public void paint(Graphics g) {
         super.paint(g);
-        g.setColor(Color.WHITE);
-        g.drawString("Tank position: (" + Tank.getX() + ", " + Tank.getY() + ")", 10, 20);
-        g.fillOval(Tank.getX() - 10, Tank.getY() - 10, 20, 20);
-        g.setColor(Color.RED);
-        for (Bullet bullet : Tank.getBullets()) {
-            g.fillOval(bullet.getX() - 5, bullet.getY() - 5, 10, 10);
-        }
+        Graphics2D g2d = (Graphics2D) g;
+
+        // Draw the tank
+        tank.draw(g2d);
+
+        // Draw other objects here...
+
+        // Repaint the canvas
+        repaint();
     }
 
     public int getWidth() {

@@ -1,13 +1,15 @@
 package com.koval.bulltank1994;
 
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Game {
-    private static final int TANK_START_X = 200;
-    private static final int TANK_START_Y = 200;
+
     private static final int CANVAS_WIDTH = 500;
     private static final int CANVAS_HEIGHT = 500;
+    private static final int TANK_START_X = CANVAS_WIDTH / 2;
+    private static final int TANK_START_Y = CANVAS_HEIGHT / 2;
 
     private Canvas canvas;
     private Tank tank;
@@ -15,10 +17,10 @@ public class Game {
 
     public Game() {
         canvas = new Canvas("BullTank 1994", CANVAS_WIDTH, CANVAS_HEIGHT);
-        bullets = new ArrayList<>();
-        tank = new Tank(TANK_START_X, TANK_START_Y, bullets);
-        canvas.addMouseListener(new EventHandler(tank, canvas));
-        canvas.addKeyListener(new EventHandler(tank, canvas));
+        List<Bullet> bullets = new ArrayList<>();
+
+        canvas.addMouseListener(new EventHandler(tank));
+        canvas.addKeyListener(new EventHandler(tank));
     }
 
     public void start() {
@@ -33,5 +35,6 @@ public class Game {
             }
         }
     }
-}
 
+
+}

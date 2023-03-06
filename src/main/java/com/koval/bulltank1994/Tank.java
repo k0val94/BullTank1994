@@ -1,85 +1,69 @@
 package com.koval.bulltank1994;
 
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.awt.*;
 import java.util.List;
 
-public class Tank {
-    private static final int SPEED = 5;
-    private static int x;
-    private static int y;
-    private static int angle = 0;
 
-    private static final int BULLET_SPEED = 10;
-    private static final int BULLET_COOLDOWN = 5;
-    private static int bulletCooldown = 0;
+import lombok.Getter;
+import lombok.Setter;
 
-    private static List<Bullet> bullets;
+@Getter
+@Setter
+public class Tank extends MapObject {
 
-    public Tank(int x, int y, List<Bullet> bullets) {
-        Tank.x = x;
-        Tank.y = y;
-        Tank.bullets = bullets;
+    public static final int UP = 0;
+    public static final int RIGHT = 1;
+    public static final int DOWN = 2;
+    public static final int LEFT = 3;
+    public static final int SIZE = 50;
+    private int vx, vy, direction, upKey, downKey, leftKey, rightKey, shootKey;
+
+    public Tank(int x, int y, List<Bullet> bullets, int upKey, int downKey, int leftKey, int rightKey, int shootKey, String skin) {
+        super(x, y, "/images/playerOne_50.png");
+        this.upKey = upKey;
+        this.downKey = downKey;
+        this.leftKey = leftKey;
+        this.rightKey = rightKey;
+        this.shootKey = shootKey;
+        this.direction = UP;
+        this.boundingBox = new Rectangle(x, y, SIZE, SIZE);
+        setImage("/images/" + skin);
     }
 
-    public static int getX() {
-        return x;
-    }
-
-    public static int getY() {
-        return y;
-    }
-
-    public static List<Bullet> getBullets() {
-        return bullets;
-    }
 
     public void update() {
-        if (bulletCooldown > 0) {
-            bulletCooldown--;
-        }
-
-        for (Bullet bullet : bullets) {
-            bullet.update();
-        }
-
-        int dx = 0;
-        int dy = 0;
-
-        switch (angle) {
-            case 0:
-                dy = -SPEED;
-                break;
-            case 90:
-                dx = SPEED;
-                break;
-            case 180:
-                dy = SPEED;
-                break;
-            case 270:
-                dx = -SPEED;
-                break;
-        }
-
-        x += dx;
-        y += dy;
+        x += vx;
+        y += vy;
+        super.update();
     }
 
-    public void shoot() {
-        if (bulletCooldown == 0) {
-            bullets.add(new Bullet(x, y, angle, BULLET_SPEED));
-            bulletCooldown = BULLET_COOLDOWN;
-        }
+    public void setDirection(int direction) {
+        this.direction = direction;
     }
 
-    public void turnLeft() {
-        angle = (angle + 270) % 360;
+    public void setVelocity(int vx, int vy) {
+        this.vx = vx;
+        this.vy = vy;
     }
 
-    public void turnRight() {
-        angle = (angle + 90) % 360;
+    public void stop() {
+        vx = 0;
+        vy = 0;
     }
+
+    public void fire() {
+        // Implement your firing logic here
+    }
+
+    public void takeDamage() {
+        // Implement your damage logic here
+    }
+
+    @Override
+    public void draw(Graphics2D g) {
+        g.drawImage(getImage(), x, y, null);
+    }
+
+
+
 }
-
