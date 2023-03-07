@@ -50,14 +50,4 @@ public class MapGenerator {
         return mapHeight;
     }
 
-    public void draw(Graphics2D g) {
-        for (int i = 0; i < map.length; i++) {
-            for (int j = 0; j < map[i].length; j++) {
-                MapObject obj = map[i][j];
-                if (obj != null) {
-                    obj.draw(g);
-                }
-            }
-        }
-    }
 }

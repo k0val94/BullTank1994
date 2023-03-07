@@ -14,7 +14,7 @@ public class BullTank1994Application {
 
     private static void startGame() {
         // Start the game
-        Game game = new Game(1280, 1024, 64, "resources/maps/hochhaus.map");
+        Game game = new Game(64, "resources/maps/hochhaus.map");
         game.start();
     }
 }

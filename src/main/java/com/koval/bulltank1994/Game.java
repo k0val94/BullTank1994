@@ -12,16 +12,14 @@ public class Game extends JFrame{
     private static final long serialVersionUID = 1L;
 
     private int gridSize;
-    private int height;
-    private int width;
+    private int height = 200;
+    private int width = 300;
     private String mapFile;
     private List<Tank> tanks;
     private MapObject[][] gameMap;
 
-    public Game(int gridSize, int height, int width, String mapFile) {
+    public Game(int gridSize, String mapFile) {
         this.gridSize = gridSize;
-        this.height = height;
-        this.width = width;
         this.mapFile = mapFile;
 
         loadMap();
@@ -30,11 +28,12 @@ public class Game extends JFrame{
         setFocusable(true);
         setFocusTraversalKeysEnabled(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(width, height);
-        setLocationRelativeTo(null);
         setTitle("BullTank1994");
         setResizable(false);
         setVisible(true);
+        setPreferredSize(new Dimension(width, height));
+        pack();
+
     }
 
     private void loadMap() {
@@ -52,6 +51,8 @@ public class Game extends JFrame{
                 "#################";
 
         MapGenerator mapGenerator = new MapGenerator(mapData);
+        this.height = mapGenerator.getMapHeight();
+        this.width = mapGenerator.getMapWidth();
         gameMap = mapGenerator.getMap();
     }
 
