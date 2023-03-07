@@ -1,8 +1,6 @@
 package com.koval.bulltank1994;
 
 import java.awt.*;
-import java.util.List;
-
 
 import lombok.Getter;
 import lombok.Setter;
@@ -16,20 +14,17 @@ public class Tank extends MapObject {
     public static final int DOWN = 2;
     public static final int LEFT = 3;
     public static final int SIZE = 50;
-    private int vx, vy, direction, upKey, downKey, leftKey, rightKey, shootKey;
+    private int vx, vy, direction, upKey, downKey, leftKey, rightKey;
 
-    public Tank(int x, int y, List<Bullet> bullets, int upKey, int downKey, int leftKey, int rightKey, int shootKey, String skin) {
-        super(x, y, "/images/playerOne_50.png");
+    public Tank(int x, int y, int upKey, int downKey, int leftKey, int rightKey) {
+        super(x, y, "/images/playerTwo_50.png");
         this.upKey = upKey;
         this.downKey = downKey;
         this.leftKey = leftKey;
         this.rightKey = rightKey;
-        this.shootKey = shootKey;
         this.direction = UP;
         this.boundingBox = new Rectangle(x, y, SIZE, SIZE);
-        setImage("/images/" + skin);
     }
-
 
     public void update() {
         x += vx;
@@ -63,7 +58,4 @@ public class Tank extends MapObject {
     public void draw(Graphics2D g) {
         g.drawImage(getImage(), x, y, null);
     }
-
-
-
 }
